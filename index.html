@@ -1,0 +1,818 @@
+<!doctype html>  
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        
+        <title>Building the Web of Tomorrow</title>
+
+        <meta name="description" content="An examination into how web standards are proposed, specified, and implemented">
+        <meta name="author" content="Bear Travis">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Font Awesome - http://fortawesome.github.com/Font-Awesome -->
+        <link rel="stylesheet" href="css/font-awesome.css">
+        
+        <style>
+        .reveal img:not(.plain) {
+            margin: 30px 0 0 0;
+            background: rgba(255,255,255,0.12);
+            border: 4px solid #eee;
+        
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            transition: all .11s linear;
+        }
+        
+        .reveal img.plain {
+            border: none;
+            box-shadow: none;
+            background: none;
+        }
+        
+        .strike-through {
+            text-decoration: line-through;
+        }
+        </style>
+        
+        <script>
+            // If the query includes 'print-pdf' we'll use the PDF print sheet
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        <!-- 
+        Reminders:
+        Point to regions demo with pointer
+        The spec & implementation need to be tied together
+        Be optimistic about patch submission
+        -->
+        <div class="reveal">
+
+            <!-- Used to fade in a background when a specific slide state is reached -->
+            <!--<div class="state-background"></div>-->
+            
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Building the Web of Tomorrow</h1>
+                    <h3>A Case Study</h3>
+                    <aside class="notes">
+                        * Hello, my name is Bear Travis.
+                        * Today, I want to talk to you about how web standards are created, using some features currently under development as examples.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>About Me</h2>
+                    <p>
+                        Software engineer on the Web Engine team at Adobe
+                    </p>
+                    <p>
+                        <i><small>
+                            <i class="icon-twitter"></i><a href="http://twitter.com/bear_travis">bear_travis</a> / 
+                            <i class="icon-github"></i><a href="http://github.com/betravis">betravis</a>
+                        </small></i>
+                    </p>
+                    <aside class="notes">
+                        * I work as a developer for Adobe on the Web Engine team, implementing web standards in WebKit.
+                        * You can see my twitter and github information up there. Feel free to tweet me with questions. The slides are also posted on github.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>About You</h2>
+                    
+                    <aside class="notes">
+                        * Since you're here, I'm assuming you've heard of HTML5.
+                        * How many of you have experimented with one of the new CSS3 features (FlexBox, MultiColumn, Variables)?
+                        * How many of you have heard of regions or exclusions?
+                        * How many of you have tried them out?
+                        * How many of you have read one of these specifications?
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Regions</h2>
+
+                    <section>
+                        <figure>
+                            <img src="resources/css-regions.png" alt="css regions diagram" />
+                            <figcaption><small><a href="http://html.adobe.com/webstandards/cssregions/">http://html.adobe.com/webstandards/cssregions/</a></small></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * First, of course, it might be useful to explain what these features are.
+                            * CSS Regions allows you to flow content through custom areas called regions.
+                            * It does this by allowing you to add content to a flow, which is then laid out within containers called regions.
+                            * In this diagram, you can see two flows with two sets of regions (region chains).
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <pre><code>
+&lt;style&gt;
+    article {
+        flow-into: article_flow;
+    }
+    
+    #region1, #region2, #region3, #region4 {
+        flow-from: article_flow;
+    }
+&lt;/style&gt;
+                        </code></pre>
+                        <aside class="notes">
+                            * Here is what the CSS markup for one region chain might look like.
+                        </aside>
+                    </section>
+                </section>
+                
+                <section>
+                    <h2>Exclusions</h2>
+                    <section>
+                        <figure>
+                            <img src="resources/css-exclusions.png" alt="css exclusions diagram" />
+                            <figcaption><small><a href="http://html.adobe.com/webstandards/cssexclusions/">http://html.adobe.com/webstandards/cssexclusions/</a></small></figcaption>
+                        <aside class="notes">
+                            * CSS Exclusions allow you to customize the way content flows around and inside HTML elements.
+                            * We see content inside the circle is following the circular contour.
+                            * And, to the right, you can see that content is wrapping around outside of it.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <pre><code>
+&lt;style&gt;
+    .circle {
+        wrap-flow: end;
+        shape-outside: circle(50%, 50%, 50%);
+        shape-margin: 10px;
+        shape-inside: shape-outside;
+        shape-padding: 10px;
+    }
+&lt;/style&gt;
+                        </code></pre>
+                        <aside class="notes">
+                            * Here is what the markup might look like.
+                            * Beginning with the content outside the shape, we specify the way it should wrap, its shape, and the breathing room to give it.
+                            * We also specify the inside shape, and its breathing room.
+                        </aside>
+                    </section>
+                </section>
+                
+                <section>
+                    <h2>Regions and Exclusions</h2>
+                    
+                    <section><!-- historical regions and exclusions -->
+                        <figure>
+                            <img src="resources/illuminated-manuscript-small.jpg" alt="illuminated manuscript example" />
+                            <figcaption><small><a href="http://www.historyhappenshere.org/node/6840">http://www.historyhappenshere.org/node/6840</a></small></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * You can think of regions and exclusions as complementing each other.
+                            * While regions define the positive areas content should fill, exclusions define the negative space content should avoid.
+                            * While these ideas may sound fancy and new, it turns out they've actually been around for a while.
+                            * For example, here is a 15th century illuminated manuscript.
+                            * You can see that there is one continuous stream of content, flowing into two regions and avoiding this one fish-shaped exclusion.
+                            * You can also go one step further, and say that a book's content flows across the pages of the book, which define content areas.
+                        </aside>
+                    </section>
+                    
+                    <section><!-- modern regions and exclusions -->
+                        <figure>
+                            <img src="resources/food-regions-and-exclusions-alexanderwolf-flickr.jpeg" alt="magazine layout example" />
+                            <figcaption><small><a href="http://www.flickr.com/photos/alexanderwolf/2452809327/">http://www.flickr.com/photos/alexanderwolf/2452809327/</a></small></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * Of course, we still use these same ideas in modern layout.
+                            * In print layout, we often flow a single stream of content across multiple areas,
+                            * Avoiding the area around figures, quotes and diagrams.
+                            * Here you can see content flowing across multiple columns, and some avoiding the pull-quote and image in the lower right.
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Regions Demo</h2>
+                        <img src="resources/regions-demo-medium.png" />
+                        <p><a href="demos/regions-pit-and-pendulum.html">The Pit and the Pendulum</a></p>
+                    </section>
+                    
+                    <section>
+                        <h2>Exclusions Demo</h2>
+                        <img src="resources/shape-inside-demo-medium.png" />
+                        <p><a href="demos/shape-inside-nevermore.html">Nevermore</a></p>
+                    </section>
+                </section>
+      
+                <section>
+                    <h2>Before they were standards</h2>
+                    
+                    <section><!-- blank intro -->
+                        <aside class="notes">
+                            * Before CSS3, people still wanted these features when creating content for the web.
+                            * Folks came up with some ingenious ways of emulating these types of layout features with javascript and creative markup.
+                        </aside>
+                    </section>
+                    
+                    <section><!-- exclusions example -->
+                        <img src="resources/early-exclusions.png" />
+                        <aside class="notes">
+                            * For example, let's say you wanted to wrap text around this circle shape.
+                        </aside>
+                    </section>
+                    
+                    <section><!-- exclusions example workaround -->
+                        <figure>
+                        <img src="resources/early-exclusions-sandbags.png" />
+                        <figcaption><small><a href="http://www.alistapart.com/articles/sandbags">http://www.alistapart.com/articles/sandbags</a></small></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * Rob Swan documented a way of generating a custom shape for a left or right floats using "float sandbags".
+                            * The idea is pretty simple. 
+                            * Generate a series of floats that approximate the edges of the shape you want content to flow around.
+                        </aside>
+                    </section>
+                    
+                    <section><!-- regions example -->
+                        <img class="plain" src="resources/early-regions.png" />
+                        <aside class="notes">
+                            * For regions, let's consider a simple magazine/newspaper layout for regions.
+                            * Typically, we want our article's content to flow through several columns.
+                            * There are two main approaches to this.
+                            * The first is to pull content, element by element, and insert it into the first available region.
+                            * When that content overflows the first region, move on to the next, and so on and so forth.
+                            source: https://github.com/adamwulf/Columnizer-jQuery-Plugin
+                        </aside>
+                    </section>
+                    
+                    <section><!-- regions example workaround -->
+                        <img class="plain" src="resources/early-regions-duplicate.png" />
+                        <aside class="notes">
+                            * The second method is to duplicate all of the content for each region
+                            * Correctly position it, and hide the overflow.
+                            source: http://code.google.com/p/js-columns/
+                        </aside>
+                    </section>
+                </section>
+                
+                <section>
+                    <h2>Let's make it a standard</h2>
+                    
+                    <section><!-- introduction -->
+                        <ol>
+                            <li class="fragment">Agreed upon behavior</li>
+                            <li class="fragment">Consistent browser implementations</li>
+                        </ol>
+                        <aside class="notes">
+                            * Now these workarounds might get the job done, but they are just that, workarounds.
+                            * Some folks at Adobe encountered these same problems when trying to do rich magazine-style layout on the web.
+                            * And, rather than fight with these problems with client-side technologies, they figured, why not implement them in the browser?
+                            * And to make that happen there are two important pieces of work that need to happen.
+                            * First, of course, everyone has to agree on what the standard should be.
+                            * The feature needs to be specified.
+                            * Second, of course, you need to be able to use it.
+                            * Which means it needs to be implemented consistently across browsers.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>The Goal: A W3C Recommendation</h3>
+                        <ol>
+                            <li class="fragment">Feature specification</li>
+                            <li class="fragment">Two different browser implementations</li>
+                            <li class="fragment">Test suite</li>
+                        </ol>
+                        <aside class="notes">
+                            * The W3C is a group responsible for guiding web specifications forward.
+                            * There is a well-defined review & development process, whose end result is a recommendation.
+                            * The recommendation defines the feature specification as a technical standard.
+                            * It's what browsers should implement if they want to support a feature.
+                            * But while the specification may sound theoretical, it also requires two browser implementations as a practical review.
+                            * A recommendation also requires a test suite to determine if a browser implementation qualifies as implementing the feature.
+                            * We'll continue to talk about this process, just keep note of this as our end goal.
+                        </aside>
+                    </section>
+                </section>
+                
+                <section>
+                    <h2>Getting the ball rolling</h2>
+                    <section>
+                        <h3>Step 1: Idea</h3>
+                        <figure>
+                            <blockquote class="fragment" cite="http://www.w3.org/TR/NOTE-CSS-potential">
+                                A complex layout may have several areas that are chained: when the first one fills up, the rest of the text flows to the second, etc. For example, a newspaper often has one small column of a story on the front page, and then the rest on other pages.
+                            </blockquote>
+                            <figcaption>
+                                <a class="fragment" href="http://www.w3.org/TR/NOTE-CSS-potential">W3C List of Suggested Extensions to CSS</a><span class="fragment"> - Dec 10, 1998</span>
+                            </figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * So we have this idea for implementing a new set of features, regions and exclusions.
+                            * People are already interested enough in these features that they are creating workarounds.
+                            * And, the W3C has already talked about them as an addition to CSS.
+                            * The idea has been around since 1998, so we're going to need to build a little momentum to get it going.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 2: Exploration</h3>
+                        <ol>
+                            <li class="fragment">Well-defined problem</li>
+                            <li class="fragment">Web-appropriate solution</li>
+                            <li class="fragment">Vendor interest</li>
+                        </ol>
+                        <aside class="notes">
+                            * Need well-defined problem to solve. Specific use cases you want to enable.
+                            * Needs to fit in well with existing technologies. In our case, CSS.
+                            * Vendors have to be interested, in order to get to the two browser implementations.
+                            * We talked to various vendors, and found a subset of functionality Adobe & MS were both interested in.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 3: Proposal</h3>
+                        <ol>
+                            <li class="fragment">Draft specification</li>
+                            <li class="fragment">Functional prototype</li>
+                        </ol>
+                        <p><img class="fragment" src="resources/shape-outside-example.jpg" /></p>
+                        <aside class="notes">
+                            * In order to officially start the W3C review process, you need to have something that is ready for review.
+                            * Officially, this means a specification draft, outlining how the feature should behave.
+                            * Because both of these features are in CSS, they fall under the purview of the CSSWG.
+                            * Adobe also chose to create a functional prototype, in WebKit, to better demonstrate how the features would work and how useful they could be.
+                            * It is easier to demonstrate an idea to the working group, rather than describing it.
+                            * May go through several iterations before moving forward. For example, the regions and exclusions spec was split into two different specs.
+                            source: http://wiki.csswg.org/planning/japan-2011
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 4: Acceptance as Working Draft</h3>
+                        <img src="resources/regions-working-draft.png" />
+                        <aside class="notes">
+                            * After working with the CSSWG to get Regions and Exclusions ready for review, the specs moved on to become "Public Working Drafts".
+                            * This doesn't guarantee a specification will become a recommendation.
+                            * The basics are that it is posted to the W3C site, and gets a neat little "Working Draft" ribbon.
+                            * What they're saying is that the feature is promising, and worth further, public, review.
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>The Evolving Specification</h2>
+                    
+                    <section>
+                        <h3 class="fragment">Working Draft</h3>
+                        <p class="fragment"><i class="icon-arrow-down"></i></p>
+                        <h3 class="fragment">Candidate Recommendation</h3>
+                        <p class="fragment"><i class="icon-arrow-down"></i></p>
+                        <h3 class="fragment">Recommendation</h3>
+                        
+                        <aside class="notes">
+                            * Regions and Exclusions are currently in the Working draft stage.
+                            * The goal of the working draft stage is to generate a specification that is ready for implementation and testing across multiple browsers.
+                            * Formally, when the specification is ready enough, it goes through a last call for comments, and then becomes a CR.
+                            * Moving  is like handing a paper in for publication. It can be accepted, or returned for further work. But you don't get to change the actual submission.
+                            * A CR is when the spec is ready for implementation and testing.
+                            * After two working browser implementations, a spec may move from CR to R.
+                            * Theoretically, the WD stage does not require any implementation.
+                            * From our experience, however, the only way to know your specification can be implemented in browsers is to implement it.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Specification <i class="icon-refresh"></i> Implementation</h3>
+                        <aside class="notes">
+                            * Now, if you remember, we've been working with Microsoft on Regions and Exclusions.
+                            * We implement the feature functionality in WebKit, they implement it in IE, and we compare notes.
+                            * During this implementation process, we actually learn a lot about the specification.
+                            * Most of the time, it's just polishing out edge cases and making clarifications where necessary.
+                            * For example...
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Shape Inside Overflow</h3>
+                        <img src="resources/css-exclusions.png" />
+                        <aside class="notes">
+                            * If you recall shape-inside, this circle on the left
+                            * We have content flowing inside the circle
+                            * What happens when content overflows?
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Overflow Proposals</h3>
+                        <img class="plain" src="resources/exclusions-overflow.png" />
+                        <aside class="notes">
+                            * The exclusions specification did not originally detail what should happen to content if it is too large for its shape-inside.
+                            * The spec editors knew about the issue, and had filed a bug to resolve it (which included a suggested algorithm).
+                            * However, when we started working on shape inside, we realized we needed to implement it pretty early.
+                            * And, having implemented parts of shape-inside, we had some ideas about what might work best.
+                            * We proposed a couple solutions in the case of overflow:
+                            * Push all overflow outside the shape
+                            * This didn't seem optimal to us, because content would appear to vertically "jump" outside the shape on the last line.
+                            * Use the width at the top of the line.
+                            * This, again, didn't seem optimal. The line would overflow the shape horizontally.
+                            * Use the width remaining in the shape
+                            * We recommended option 3 because it made the text continuous, but still generally respect the bounds of shape-inside.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Regions OM</h3>
+                        <pre><code>
+interface Region {
+    readonly attribute DOMString regionOverset
+        throws DOMException;
+    readonly attribute DOMString flowFrom
+        throws DOMException;
+    sequence&lt;Range&gt;? getRegionFlowRanges()
+        throws DOMException;
+    CSSStyleDeclaration getComputedStyle(Element elt);
+    CSSStyleDeclaration getComputedStyle(Element elt, 
+        DOMString pseudoElt);
+};
+Element implements Region;
+                        </code></pre>
+                        <aside class="notes">
+                            * Sometimes you find a couple surprises as well.
+                            * Regions included some OM work to make it accessible to JavaScript.
+                            * For a region, regionOverset lets you know if the content is overflowing the region chain.
+                            * Flow from gave you the named flow a region was pulling content from.
+                            * getRegionFlowRanges gave the offsets into the content that this region contained, and
+                            * getComputedStyle gave the computed style for content within the region.
+                            * Initially, these were added to all elements that could become regions.
+                            * But we thought there was no valid value for these if the elements were not regions, and
+                            * so we thought throwing an exception would be best.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <pre><code>
+var element = document.getElementById("region1");
+try {
+    /* handle region cases */
+    switch(element.regionOverset) {
+        case "overset":
+        case "fit":
+        case "empty": break;
+    }
+} catch (err) {
+    /* handle non-region case */
+}
+                        </code></pre>
+                        <aside class="notes">
+                            * One thing we noticed pretty early was that exceptions uglified code.
+                            * For example, if you were testing regionOverset, you would need to surround your code with a try/catch.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <pre><code>
+var element = document.getElementById("region1");
+/* handle all cases */
+switch(element.regionOverset) {
+        case "overset":
+        case "fit":
+        case "empty":
+        default: break;
+}
+                        </code></pre>
+                        <aside class="notes">
+                            * When what you'd rather do is this.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <pre><code>
+var element = document.createElementById("div");
+for (var property in element) {
+    console.log(property + ":" + element[property]);
+}
+                        </code></pre>
+                        <aside class="notes">
+                            * But, when we wound up implementing the behavior, we found out
+                            * WebKit had a whole battery of tests that iterated through element properties.
+                            * And was enforcing the assumption that accessing these properties did not throw exceptions.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Regions OM (Updated)</h3>
+                        <pre><code>
+interface Region {
+    readonly attribute DOMString regionOverset
+        <span class="strike-through">throws DOMException</span>;
+    <span class="strike-through">readonly attribute DOMString flowFrom</span>
+        <span class="strike-through">throws DOMException</span>;
+    sequence&lt;Range&gt;? getRegionFlowRanges()
+        <span class="strike-through">throws DOMException</span>;
+    CSSStyleDeclaration getComputedStyle(Element elt);
+    CSSStyleDeclaration getComputedStyle(Element elt, 
+        DOMString pseudoElt);
+};
+Element implements Region;
+                        </code></pre>
+                        <aside class="notes">
+                            * So we changed it. We wound up simplifying out some properties that we didn't need (flowFrom)
+                            * And changing the properties to return undefined when they were unspecified, rather than throwing and exception.
+                        </aside>
+                    </section>
+                </section>
+
+                <section><!-- implementation -->
+                    <h2>W3C Recommendation Requirements</h2>
+                    <ol>
+                        <li>Feature specification<i class="fragment icon-ok"></i></li>
+                        <li>Two different browser implementations</li>
+                        <li>Test suite</li>
+                    </ol>
+                    <aside class="notes">
+                        * If you recall when we talked about the W3C recommendation criteria, there were three requirements.
+                        * I've talked a whole lot about the specification, and the process it goes through.
+                        * I'd like to talk a little bit about how browser implementations happen.
+                        * (I'm going to spare you guys talking about building a test suite, but they are important).
+                        * In particular, I'm going to walk you through the process I went through to get the first shape-inside patch into WebKit.
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Contributing to WebKit, Made Easy</h2>
+                    
+                    <section>
+                        <h3>Step 1: Get the code</h3>
+                        <figure>
+                            <img class="plain" src="resources/webkit-icon.png" alt="webkit icon" />
+                            <figcaption><a href="http://www.webkit.org">http://www.webkit.org</a></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * Now, before you start contributing to WebKit, you of course need to get the source code.
+                            * WebKit is open source. Anyone can download the code, and anyone can contribute patches.
+                            * WebKit.org has all of the information needed to get started.
+                            * WebKit is the engine behind the Safari and Chrome browsers.
+                            source: http://www.webkit.org/images/icon-gold.png
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 2: File a bug</h3>
+                        <figure>
+                            <img src="resources/shape-inside-bug.png" alt="shape inside bug" />
+                            <figcaption><a href="https://bugs.webkit.org/">https://bugs.webkit.org/</a></figcaption>
+                        </figure>
+                        <aside class="notes">
+                            * To keep track of all the work being done, WebKit uses a bug tracking system.
+                            * Pretty much anything that gets done, whether it's fixing a bug or implementing a new feature gets filed as a bug.
+                            * Here I've filed a bug to implement the first portion of shape-inside for exclusions.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 3: Build and test it</h3>
+                        <img class="plain" src="resources/xcode-shape-inside.png" alt="xcode development" />
+                        <aside class="notes">
+                            * This is probably a given, but you have to actually develop it.
+                            * So, I built the code to make a subset of shape inside functionality work.
+                            * The testing part is important here too.
+                            * WebKit has a whole battery of tests to make sure things continue to work, and
+                            * you're going to need to contribute tests along with pretty much any code you write as well.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 3: Upload a patch</h3>
+                        <img src="resources/shape-inside-patch.png" alt="shape inside patch" />
+                        <aside class="notes">
+                            * After you've developed some code to fix the patch, you can upload it to your bug.
+                            * The patch gets attached to the bug.
+                            * The bug tracker has a series of bots that will load the patch and make sure it builds correctly, as well as run the test suite against it.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Step 4: Solicit feedback</h3>
+                        <img src="resources/shape-inside-review.png" alt="shape inside review" />
+                        <p><small>#webkit on irc.freenode.net | webkit-dev@lists.webkit.org</small></p>
+                        <aside class="notes">
+                            * Feedback comes in multiple forms.
+                            * First, for large issues, you need to communicate with the webkit community in general.
+                            * They're available via IRC and the webkit mailing list.
+                            * So, for example, it's important to announce something like a new feature being implemented, and be responsive to general feedback.
+                            * Sometimes, folks take a little convincing.
+                            * Secondly, code has to be approved by a webkit expert, called a reviewer, before being accepted into WebKit.
+                            * These experts specialize in different areas of WebKit as well.
+                            * This patch introduced new architecture, and was therefore subject to a higher degree of scrutiny.
+                            * And that's a high bar, code going into Webkit is already handled very cautiously.
+                            * ~10 people with expertise in layout, and only 3 or 4 who were active and felt qualified to review the patch.
+                            * This patch is ~550 lines, ~200 lines of functional code, with the rest being comments and tests.
+                            * 10 rounds of review, 24 patch submissions, 6 weeks months from initial patch to submitted code.
+                            * Subsequent patches, just extending / fixing functionality can take a couple days to a week.
+                            * Small patches can be turned around same day.
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>Lessons Learned</h3>
+                        <ul>
+                            <li class="fragment">Patch reviews take time</li>
+                            <li class="fragment">Make patches small and modular</li>
+                            <li class="fragment">Respect your reviewer's time & feedback</li>
+                        </ul>
+                        <aside class="notes">
+                            * First, be patient, reviews take time.
+                            * Because every line is scrutinized during review, it's important to keep code surface area low.
+                            * The simpler the patch is, the easier it is to review and get it through the process.
+                            * Reviewers are busy and have other duties. They're going to offer loooots of feedback (like "please make your comments full sentences and punctuate appropriately")
+                            * But, if they're giving you feedback, they're helping you towards getting the code submitted.
+                            * They also might think something should be different, and they're often right. They are, after all, experts.
+                            * Make sure a patch is always ready for review before asking it. For me, I always want a patch to be as ready for submission as possible.
+                            * For example, always write tests. If a patch doesn't have tests, it's going to be one of the first things a reviewer notices.
+                            * The goal should always be to submit a patch that's ready for acceptance, because getting reviews can require so much effort.
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>New Feature Rollout</h2>
+                    <section>
+                        <h3 class="fragment">Source Code</h3>
+                        <p class="fragment"><i class="icon-arrow-down"></i></p>
+                        <h3 class="fragment">Nightly Builds</h3>
+                        <p class="fragment"><i class="icon-arrow-down"></i></p>
+                        <h3 class="fragment">Experimental Channel</h3>
+                       <aside class="notes">
+                            * All of that work may seem a little extravagant for submitting a simple patch.
+                            * After all, all it added was some very simple functionality for a new feature.
+                            * But, it actually does some pretty cool things.
+                            * Because the bar for the source code is so high, it speeds up the rate at which it is released to users.
+                            * First, the WebKit source code is built every 24 hours and released as a nightly build.
+                            * These builds, though, are still mainly for development testing.
+                            * A couple browsers, including Chrome, have different release channels, which demonstrate browser features at different levels of polish.
+                            * These channels are targeted more towards web developers, with the goal of balancing what's new against what's stable.
+                            * For Chrome, there is an experimental channel called Chrome Canary.
+                            * Chrome Canary updates daily, so when you use it, you know you really are using the bleeding edge.
+                            * The cool thing about these experimental builds is, pretty much as soon as code goes into WebKit, we can say
+                            * "You'll see it tomorrow in Canary".
+                            * The experimental channel also runs in parallel to Chrome, so you can use Canary to test out new features without messing with daily browsing in Chrome.
+                            * Firefox has the Aurora channel, and Opera has Opera Next.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3 class="fragment">Stable Channel</h3>
+                        <img class="fragment plain" src="resources/chrome-flags.png" />
+                        <aside class="notes">
+                            * From there, code eventually makes its way into the stable channel, your general public browser.
+                            * For Chrome, a major release cycle is about 6 weeks.
+                            * In Chrome, experimental code can still make it into one of these releases, as long as it is flagged as an experiment.
+                            * Meaning, you have to manually enable it as an "experimental feature" from Chrome flags.
+                            * This is really cool, because code we put into WebKit will be available in your everyday Chrome browser (albeit flagged), on a 6 week release cycle.
+                            * This may sound a little WebKit heavy, but that's because I'm giving one specific implementation example.
+                            * Whatever your browser, there's a pretty good chance it's doing some cool new tricks and it's showing them off at a faster clip.
+                            http://www.impressivewebs.com/release-history-major-browsers/
+                        </aside>
+                    </section>                    
+                </section>
+                                
+                <section>
+                    <h2>Web Standards, Browsers &amp; You</h2>
+                    
+                    <section>
+                        <h3>When will they be ready for me to use?</h3>
+                        <aside class="notes">
+                            * So the inevitable question is: How soon will they be ready for me to use?
+                        </aside>
+                    </section>
+                    
+                    <section>
+                        <h3>How ready do you need them to be?</h3>
+                        <ul>
+                            <li class="fragment">Regions in Chrome/IE <i class="icon-beaker"></i></li>
+                            <li class="fragment">Exclusions in Chrome/IE <i class="icon-beaker"></i></li>
+                            <li class="fragment">Regions polyfill coming soon!</li>
+                        </ul>
+                        <aside class="notes">
+                            * And my question for you is: how ready do you need them to be?
+                            * The specifications will take a while to get to recommendation, as the W3C process is designed to be exacting.
+                            * Something proposed as a standard should be rock solid.
+                            * But, the specifications and implementations are continuously moving forward, AND
+                            * Browsers are continuously rolling out new functionality.
+                            * Which gives you the opportunity to pick it up at the right point for your needs.
+                            * With polyfills and tools like Modernizr, it's possible to implement it now and slowly transition to native implementations.
+                            * If you remember how I opened the presentation, people have wanted these features badly enough that they work pretty hard to get them.
+                            
+                            * Regions and Exclusions are both partially implemented and available to the public.
+                            * Regions is ready for experimentation in release builds of Chrome.
+                            * Shape-inside is ready the adventurous in Canary builds of Chrome.
+                            * Both have to be enabled via chrome://flags.
+                            * Both also have partial functionality enabled in IE 9.
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Get Involved</h3>
+                        <ul>
+                            <li class="fragment">Build cool stuff</li>
+                            <li class="fragment">
+                                Grab an experimental build<br/>
+                                <small>(
+                                <a href="http://www.chromium.org/getting-involved/dev-channel">CR</a> |
+                                <a href="http://www.mozilla.org/en-US/firefox/channel/">FF</a> |
+                                <a href="http://ie.microsoft.com/testdrive/">IE</a> |
+                                <a href="http://www.opera.com/browser/next/">O</a> |
+                                <a href="http://http://nightly.webkit.org/">S</a>
+                                )</small>
+                            </li>
+                            <li class="fragment">Test drive a new feature</li>
+                            <li class="fragment">
+                                Read &amp; comment on a specification<br/>
+                                <small>(
+                                <a href="http://w3.org">W3C</a> | 
+                                <a href="http://whatwg.org">WhatWG</a>  | 
+                                <a href="http://www.ecma-international.org/">Ecma</a>
+                                )</small>
+                            </li>
+                            <li class="fragment">Join the conversation</li>
+                        </ul>
+                        <aside class="notes">
+                            * On that note, I'd like to just point out that it was the content people were trying to build on the web that encouraged Regions and Exclusions in the first place.
+                            * Implementation always lags a bit behind vision.
+                            * So I would encourage all of you to dream big, and let us know how web standards can make it happen.
+                        </aside>
+                    </section>
+                </section>
+                
+                <section>
+                    <h1>The End</h1>
+                    <p><i class="icon-twitter"></i> <a href="http://twitter.com/bear_travis">bear_travis</a></p>
+                </section>
+            </div>
+
+            <!-- The navigational controls UI -->
+            <aside class="controls">
+                <a class="left" href="#">&#x25C4;</a>
+                <a class="right" href="#">&#x25BA;</a>
+                <a class="up" href="#">&#x25B2;</a>
+                <a class="down" href="#">&#x25BC;</a>
+            </aside>
+
+            <!-- Presentation progress bar -->
+            <div class="progress"><span></span></div>
+            
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                
+                theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                    { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                ]
+            });
+            
+            Reveal.addEventListener( 'slidechanged', function( event ) {
+                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+                var notes = event.currentSlide.querySelector(".notes");
+                if(notes) {
+                    console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
+                }
+            } );
+            
+        </script>
+
+    </body>
+</html>
