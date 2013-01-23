@@ -1,0 +1,30 @@
+#banner, #banner > * {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#banner #banner-adobe
+, #banner #banner-large
+, .banner-large #banner #banner-small {
+  -webkit-transition: opacity 200ms linear;
+  -moz-transition: opacity 200ms linear;
+  -o-transition: opacity 200ms linear;
+  -ms-transition: opacity 200ms linear;
+  transition: opacity 200ms linear;
+  opacity: 0;
+}
+
+.banner-large #banner #banner-adobe
+, .banner-large #banner #banner-large
+, #banner #banner-small {
+  -webkit-transition: opacity 200ms linear 200ms;
+  -moz-transition: opacity 200ms linear 200ms;
+  -o-transition: opacity 200ms linear 200ms;
+  -ms-transition: opacity 200ms linear 200ms;
+  transition: opacity 200ms linear 200ms;
+  opacity: 1;
+}

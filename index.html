@@ -1,28 +1,31 @@
-<!doctype html>  
+<!doctype html>
 <html lang="en">
-    
-    <head>
-        <meta charset="utf-8">
-        
-        <title>Building the Web of Tomorrow</title>
 
-        <meta name="description" content="An examination into how web standards are proposed, specified, and implemented">
-        <meta name="author" content="Bear Travis">
+	<head>
+		<meta charset="utf-8">
 
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<title>Building the Web of Tomorrow</title>
 
-        <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="lib/css/zenburn.css">
+		<meta name="description" content="An examination into how web standards are proposed, specified, and implemented">
+		<meta name="author" content="Bear Travis">
 
-        <!-- Font Awesome - http://fortawesome.github.com/Font-Awesome -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/adobe/adobe.css" id="theme">
+
+		<!-- Font Awesome - http://fortawesome.github.com/Font-Awesome -->
         <link rel="stylesheet" href="css/font-awesome.css">
-        
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
         <style>
         .reveal img:not(.plain) {
             margin: 30px 0 0 0;
@@ -42,32 +45,29 @@
         .strike-through {
             text-decoration: line-through;
         }
-        </style>
-        
-        <script>
-            // If the query includes 'print-pdf' we'll use the PDF print sheet
-            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-        </script>
 
-        <!--[if lt IE 9]>
-        <script src="lib/js/html5shiv.js"></script>
-        <![endif]-->
-    </head>
-    
-    <body>
-        <!-- 
+        .reveal pre.small {
+        	font-size: .55em;
+        }
+        </style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<!-- 
         Reminders:
         Point to regions demo with pointer
         The spec & implementation need to be tied together
         Be optimistic about patch submission
         -->
-        <div class="reveal">
+		<div class="reveal">
 
-            <!-- Used to fade in a background when a specific slide state is reached -->
-            <!--<div class="state-background"></div>-->
-            
-            <!-- Any section element inside of this container is displayed as a slide -->
-            <div class="slides">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
                 <section>
                     <h1>Building the Web of Tomorrow</h1>
                     <h3>A Case Study</h3>
@@ -107,7 +107,9 @@
                 </section>
                 
                 <section>
-                    <h2>Regions</h2>
+                	<section>
+	                    <h2>Regions</h2>
+					</section>
 
                     <section>
                         <figure>
@@ -123,17 +125,13 @@
                     </section>
                     
                     <section>
-                        <pre><code>
-&lt;style&gt;
-    article {
-        flow-into: article_flow;
-    }
-    
-    #region1, #region2, #region3, #region4 {
-        flow-from: article_flow;
-    }
-&lt;/style&gt;
-                        </code></pre>
+<pre><code class='css'>article {
+    flow-into: article_flow;
+}
+#region1, #region2,
+#region3, #region4 {
+    flow-from: article_flow;
+}</code></pre>
                         <aside class="notes">
                             * Here is what the CSS markup for one region chain might look like.
                         </aside>
@@ -141,7 +139,10 @@
                 </section>
                 
                 <section>
-                    <h2>Exclusions</h2>
+                	<section>
+	                    <h2>Exclusions</h2>
+	                </section>
+
                     <section>
                         <figure>
                             <img src="resources/css-exclusions.png" alt="css exclusions diagram" />
@@ -154,17 +155,13 @@
                     </section>
                     
                     <section>
-                        <pre><code>
-&lt;style&gt;
-    .circle {
-        wrap-flow: end;
-        shape-outside: circle(50%, 50%, 50%);
-        shape-margin: 10px;
-        shape-inside: shape-outside;
-        shape-padding: 10px;
-    }
-&lt;/style&gt;
-                        </code></pre>
+<pre><code class='css'>.circle {
+    wrap-flow: end;
+    shape-outside: circle(50%, 50%, 50%);
+    shape-margin: 10px;
+    shape-inside: shape-outside;
+    shape-padding: 10px;
+}</code></pre>
                         <aside class="notes">
                             * Here is what the markup might look like.
                             * Beginning with the content outside the shape, we specify the way it should wrap, its shape, and the breathing room to give it.
@@ -174,8 +171,10 @@
                 </section>
                 
                 <section>
-                    <h2>Regions and Exclusions</h2>
-                    
+                    <section>
+	                    <h2>Regions and Exclusions</h2>
+                    </section>
+
                     <section><!-- historical regions and exclusions -->
                         <figure>
                             <img src="resources/illuminated-manuscript-small.jpg" alt="illuminated manuscript example" />
@@ -220,10 +219,9 @@
                 </section>
       
                 <section>
-                    <h2>Before they were standards</h2>
-                    
-                    <section><!-- blank intro -->
-                        <aside class="notes">
+                    <section>
+                    	<h2>Before they were standards</h2>
+                    	<aside class="notes">
                             * Before CSS3, people still wanted these features when creating content for the web.
                             * Folks came up with some ingenious ways of emulating these types of layout features with javascript and creative markup.
                         </aside>
@@ -271,9 +269,8 @@
                 </section>
                 
                 <section>
-                    <h2>Let's make it a standard</h2>
-                    
                     <section><!-- introduction -->
+                    	<h2>Let's make it a standard</h2>
                         <ol>
                             <li class="fragment">Agreed upon behavior</li>
                             <li class="fragment">Consistent browser implementations</li>
@@ -310,7 +307,10 @@
                 </section>
                 
                 <section>
-                    <h2>Getting the ball rolling</h2>
+                    <section>
+                    	<h2>Getting the ball rolling</h2>
+                    </section>
+
                     <section>
                         <h3>Step 1: Idea</h3>
                         <figure>
@@ -375,9 +375,9 @@
                 </section>
 
                 <section>
-                    <h2>The Evolving Specification</h2>
-                    
                     <section>
+                    	<h2>The Evolving Specification</h2>
+
                         <h3 class="fragment">Working Draft</h3>
                         <p class="fragment"><i class="icon-arrow-down"></i></p>
                         <h3 class="fragment">Candidate Recommendation</h3>
@@ -437,8 +437,7 @@
                     
                     <section>
                         <h3>Regions OM</h3>
-                        <pre><code>
-interface Region {
+<pre class='small'><code>interface Region {
     readonly attribute DOMString regionOverset
         throws DOMException;
     readonly attribute DOMString flowFrom
@@ -449,8 +448,7 @@ interface Region {
     CSSStyleDeclaration getComputedStyle(Element elt, 
         DOMString pseudoElt);
 };
-Element implements Region;
-                        </code></pre>
+Element implements Region;</code></pre>
                         <aside class="notes">
                             * Sometimes you find a couple surprises as well.
                             * Regions included some OM work to make it accessible to JavaScript.
@@ -465,8 +463,7 @@ Element implements Region;
                     </section>
                     
                     <section>
-                        <pre><code>
-var element = document.getElementById("region1");
+<pre class='small'><code>var element = document.getElementById("region1");
 try {
     /* handle region cases */
     switch(element.regionOverset) {
@@ -476,8 +473,7 @@ try {
     }
 } catch (err) {
     /* handle non-region case */
-}
-                        </code></pre>
+}</code></pre>
                         <aside class="notes">
                             * One thing we noticed pretty early was that exceptions uglified code.
                             * For example, if you were testing regionOverset, you would need to surround your code with a try/catch.
@@ -485,28 +481,24 @@ try {
                     </section>
 
                     <section>
-                        <pre><code>
-var element = document.getElementById("region1");
+<pre class='small'><code>var element = document.getElementById("region1");
 /* handle all cases */
 switch(element.regionOverset) {
-        case "overset":
-        case "fit":
-        case "empty":
-        default: break;
-}
-                        </code></pre>
+    case "overset":
+    case "fit":
+    case "empty":
+    default: break;
+}</code></pre>
                         <aside class="notes">
                             * When what you'd rather do is this.
                         </aside>
                     </section>
 
                     <section>
-                        <pre><code>
-var element = document.createElementById("div");
+<pre class='small'><code>var element = document.createElementById("div");
 for (var property in element) {
     console.log(property + ":" + element[property]);
-}
-                        </code></pre>
+}</code></pre>
                         <aside class="notes">
                             * But, when we wound up implementing the behavior, we found out
                             * WebKit had a whole battery of tests that iterated through element properties.
@@ -516,8 +508,7 @@ for (var property in element) {
 
                     <section>
                         <h3>Regions OM (Updated)</h3>
-                        <pre><code>
-interface Region {
+<pre class='small'><code>interface Region {
     readonly attribute DOMString regionOverset
         <span class="strike-through">throws DOMException</span>;
     <span class="strike-through">readonly attribute DOMString flowFrom</span>
@@ -528,8 +519,7 @@ interface Region {
     CSSStyleDeclaration getComputedStyle(Element elt, 
         DOMString pseudoElt);
 };
-Element implements Region;
-                        </code></pre>
+Element implements Region;</code></pre>
                         <aside class="notes">
                             * So we changed it. We wound up simplifying out some properties that we didn't need (flowFrom)
                             * And changing the properties to return undefined when they were unspecified, rather than throwing and exception.
@@ -554,7 +544,9 @@ Element implements Region;
                 </section>
                 
                 <section>
-                    <h2>Contributing to WebKit, Made Easy</h2>
+                    <section>
+                    	<h2>Contributing to WebKit, Made Easy</h2>
+                    </section>
                     
                     <section>
                         <h3>Step 1: Get the code</h3>
@@ -585,7 +577,7 @@ Element implements Region;
                     </section>
                     
                     <section>
-                        <h3>Step 3: Build and test it</h3>
+                        <h3>Step 3: Build and test a fix</h3>
                         <img class="plain" src="resources/xcode-shape-inside.png" alt="xcode development" />
                         <aside class="notes">
                             * This is probably a given, but you have to actually develop it.
@@ -650,8 +642,8 @@ Element implements Region;
                 </section>
 
                 <section>
-                    <h2>New Feature Rollout</h2>
                     <section>
+                    	<h2>New Feature Rollout</h2>
                         <h3 class="fragment">Source Code</h3>
                         <p class="fragment"><i class="icon-arrow-down"></i></p>
                         <h3 class="fragment">Nightly Builds</h3>
@@ -676,8 +668,8 @@ Element implements Region;
                     </section>
 
                     <section>
-                        <h3 class="fragment">Stable Channel</h3>
-                        <img class="fragment plain" src="resources/chrome-flags.png" />
+                        <h3>Stable Channel</h3>
+                        <img class="plain" src="resources/chrome-flags.png" />
                         <aside class="notes">
                             * From there, code eventually makes its way into the stable channel, your general public browser.
                             * For Chrome, a major release cycle is about 6 weeks.
@@ -692,10 +684,9 @@ Element implements Region;
                 </section>
                                 
                 <section>
-                    <h2>Web Standards, Browsers &amp; You</h2>
-                    
                     <section>
-                        <h3>When will they be ready for me to use?</h3>
+                    	<h2>Standards, Browsers &amp; You</h2>
+                        <h3 class='fragment'>When will they be ready for me to use?</h3>
                         <aside class="notes">
                             * So the inevitable question is: How soon will they be ready for me to use?
                         </aside>
@@ -763,56 +754,40 @@ Element implements Region;
                     <h1>The End</h1>
                     <p><i class="icon-twitter"></i> <a href="http://twitter.com/bear_travis">bear_travis</a></p>
                 </section>
-            </div>
 
-            <!-- The navigational controls UI -->
-            <aside class="controls">
-                <a class="left" href="#">&#x25C4;</a>
-                <a class="right" href="#">&#x25BA;</a>
-                <a class="up" href="#">&#x25B2;</a>
-                <a class="down" href="#">&#x25BC;</a>
-            </aside>
+			</div>
 
-            <!-- Presentation progress bar -->
-            <div class="progress"><span></span></div>
-            
-        </div>
+		</div>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.min.js"></script>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
 
-        <script>
-            
-            // Full list of configuration options available here:
-            // https://github.com/hakimel/reveal.js#configuration
-            Reveal.initialize({
-                controls: true,
-                progress: true,
-                history: true,
-                
-                theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+		<script>
 
-                // Optional libraries used to extend on reveal.js
-                dependencies: [
-                    { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
-                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
-                    { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
-                ]
-            });
-            
-            Reveal.addEventListener( 'slidechanged', function( event ) {
-                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-                var notes = event.currentSlide.querySelector(".notes");
-                if(notes) {
-                    console.info(notes.innerHTML.replace(/\n\s+/g,'\n'));
-                }
-            } );
-            
-        </script>
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
 
-    </body>
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
 </html>
