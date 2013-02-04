@@ -1,0 +1,137 @@
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=IM+Fell+Double+Pica:400' rel='stylesheet' type='text/css'>
+<!-- dat-gui widget: http://code.google.com/p/dat-gui/ -->
+<script type="text/javascript" src="dat.gui.min.js"></script>
+<script>
+window.onload = function() {
+    var gui = new dat.GUI();
+    var obj = {
+        bodyFontSize: 12,
+        flowFontSize: 12
+    };
+    gui.add(obj, "bodyFontSize").min(5).max(20).step(1).onChange(
+        function(newValue) {
+            document.body.setAttribute("style", "font-size:" + newValue + "px");
+        }
+    );
+    gui.add(obj, "flowFontSize").min(5).max(20).step(1).onChange(
+        function(newValue) {
+            var elem = document.getElementById("full-text");
+            elem.setAttribute("style", "font-size:" + newValue + "px");
+        }
+    );
+}
+</script>
+<style>
+body {
+    font-size: 12px;
+    font-family: 'IM Fell Double Pica', serif;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+#container {
+    width: 100em;
+    height: 60em;
+    position: relative;
+}
+#area1 {
+    padding-top: 2.5em;
+    width: 60em;
+    height: 10em;
+}
+#area2 {
+    width: 30em;
+    height: 45em;
+    position: absolute;
+    top: 15em;
+}
+#area3 {
+    width: 30em;
+    height: 20em;
+    position: absolute;
+    top: 15em;
+    left: 30em;
+    background: url('planet.svg') no-repeat;
+    background-size: contain;
+}
+#area4 {
+    width: 30em;
+    height: 25em;
+    position: absolute;
+    top: 35em;
+    left: 30em;
+}
+#area5 {
+    width: 40em;
+    height: 60em;
+    position: absolute;
+    left: 60em;
+    top: 0;
+    overflow: hidden;
+}
+#area2, #area4, #area5 {
+    -webkit-flow-from: story;
+}
+#full-text {
+    -webkit-flow-into: story;
+    padding: 0 1.5em;
+}
+p { -webkit-margin-before: 0; text-indent: 1em; }
+h1.title { font-size: 3.6em; }
+h2.author { font-size: 1.7em; }
+h3.date { font-size: 1.3em; }
+.author, .title, .date { text-align: center; margin: auto; vertical-align:middle;}
+.date::before { content: '~'; }
+.date::after { content: '~'; }
+</style>
+</head>
+<body>
+<div id="container">
+<div id="area1">
+<h1 class="title">A Princess of Mars</h1>
+<h2 class="author">by Edgar Rice Burroughs</h2>
+<h3 class="date">published 1917</h3>
+</div>
+<div id="area2"></div>
+<div id="area3"></div>
+<div id="area4"></div>
+<div id="area5"></div>
+</div>
+<div id="full-text">
+<p>The brilliantly lighted apartments of the first floor told me where first to seek, and advancing to the windows I peered within.  I soon discovered that my approach was not to be the easy thing I had hoped, for the rear rooms bordering the court were filled with warriors and women.  I then glanced up at the stories above, discovering that the third was apparently unlighted, and so decided to make my entrance to the building from that point.  It was the work of but a moment for me to reach the windows above, and soon I had drawn myself within the sheltering shadows of the unlighted third floor.</p>
+
+<p>Fortunately the room I had selected was untenanted, and creeping noiselessly to the corridor beyond I discovered a light in the apartments ahead of me.  Reaching what appeared to be a doorway I discovered that it was but an opening upon an immense inner chamber which towered from the first floor, two stories below me, to the dome-like roof of the building, high above my head.  The floor of this great circular hall was thronged with chieftains, warriors and women, and at one end was a great raised platform upon which squatted the most hideous beast I had ever put my eyes upon.  He had all the cold, hard, cruel, terrible features of the green warriors, but accentuated and debased by the animal passions to which he had given himself over for many years.  There was not a mark of dignity or pride upon his bestial countenance, while his enormous bulk spread itself out upon the platform where he squatted like some huge devil fish, his six limbs accentuating the similarity in a horrible and startling manner.</p>
+
+<p>But the sight that froze me with apprehension was that of Dejah Thoris and Sola standing there before him, and the fiendish leer of him as he let his great protruding eyes gloat upon the lines of her beautiful figure.  She was speaking, but I could not hear what she said, nor could I make out the low grumbling of his reply.  She stood there erect before him, her head high held, and even at the distance I was from them I could read the scorn and disgust upon her face as she let her haughty glance rest without sign of fear upon him.  She was indeed the proud daughter of a thousand jeddaks, every inch of her dear, precious little body; so small, so frail beside the towering warriors around her, but in her majesty dwarfing them into insignificance; she was the mightiest figure among them and I verily believe that they felt it.</p>
+
+<p>Presently Tal Hajus made a sign that the chamber be cleared, and that the prisoners be left alone before him.  Slowly the chieftains, the warriors and the women melted away into the shadows of the surrounding chambers, and Dejah Thoris and Sola stood alone before the jeddak of the Tharks.</p>
+
+<p>One chieftain alone had hesitated before departing; I saw him standing in the shadows of a mighty column, his fingers nervously toying with the hilt of his great-sword and his cruel eyes bent in implacable hatred upon Tal Hajus.  It was Tars Tarkas, and I could read his thoughts as they were an open book for the undisguised loathing upon his face.  He was thinking of that other woman who, forty years ago, had stood before this beast, and could I have spoken a word into his ear at that moment the reign of Tal Hajus would have been over; but finally he also strode from the room, not knowing that he left his own daughter at the mercy of the creature he most loathed.</p>
+
+<p>Tal Hajus arose, and I, half fearing, half anticipating his intentions, hurried to the winding runway which led to the floors below.  No one was near to intercept me, and I reached the main floor of the chamber unobserved, taking my station in the shadow of the same column that Tars Tarkas had but just deserted.  As I reached the floor Tal Hajus was speaking.</p>
+
+<p>"Princess of Helium, I might wring a mighty ransom from your people would I but return you to them unharmed, but a thousand times rather would I watch that beautiful face writhe in the agony of torture; it shall be long drawn out, that I promise you; ten days of pleasure were all too short to show the love I harbor for your race.  The terrors of your death shall haunt the slumbers of the red men through all the ages to come; they will shudder in the shadows of the night as their fathers tell them of the awful vengeance of the green men; of the power and might and hate and cruelty of Tal Hajus.  But before the torture you shall be mine for one short hour, and word of that too shall go forth to Tardos Mors, Jeddak of Helium, your grandfather, that he may grovel upon the ground in the agony of his sorrow.  Tomorrow the torture will commence; tonight thou art Tal Hajus'; come!"</p>
+
+<p>The brilliantly lighted apartments of the first floor told me where first to seek, and advancing to the windows I peered within.  I soon discovered that my approach was not to be the easy thing I had hoped, for the rear rooms bordering the court were filled with warriors and women.  I then glanced up at the stories above, discovering that the third was apparently unlighted, and so decided to make my entrance to the building from that point.  It was the work of but a moment for me to reach the windows above, and soon I had drawn myself within the sheltering shadows of the unlighted third floor.</p>
+
+<p>Fortunately the room I had selected was untenanted, and creeping noiselessly to the corridor beyond I discovered a light in the apartments ahead of me.  Reaching what appeared to be a doorway I discovered that it was but an opening upon an immense inner chamber which towered from the first floor, two stories below me, to the dome-like roof of the building, high above my head.  The floor of this great circular hall was thronged with chieftains, warriors and women, and at one end was a great raised platform upon which squatted the most hideous beast I had ever put my eyes upon.  He had all the cold, hard, cruel, terrible features of the green warriors, but accentuated and debased by the animal passions to which he had given himself over for many years.  There was not a mark of dignity or pride upon his bestial countenance, while his enormous bulk spread itself out upon the platform where he squatted like some huge devil fish, his six limbs accentuating the similarity in a horrible and startling manner.</p>
+
+<p>But the sight that froze me with apprehension was that of Dejah Thoris and Sola standing there before him, and the fiendish leer of him as he let his great protruding eyes gloat upon the lines of her beautiful figure.  She was speaking, but I could not hear what she said, nor could I make out the low grumbling of his reply.  She stood there erect before him, her head high held, and even at the distance I was from them I could read the scorn and disgust upon her face as she let her haughty glance rest without sign of fear upon him.  She was indeed the proud daughter of a thousand jeddaks, every inch of her dear, precious little body; so small, so frail beside the towering warriors around her, but in her majesty dwarfing them into insignificance; she was the mightiest figure among them and I verily believe that they felt it.</p>
+
+<p>Presently Tal Hajus made a sign that the chamber be cleared, and that the prisoners be left alone before him.  Slowly the chieftains, the warriors and the women melted away into the shadows of the surrounding chambers, and Dejah Thoris and Sola stood alone before the jeddak of the Tharks.</p>
+
+<p>One chieftain alone had hesitated before departing; I saw him standing in the shadows of a mighty column, his fingers nervously toying with the hilt of his great-sword and his cruel eyes bent in implacable hatred upon Tal Hajus.  It was Tars Tarkas, and I could read his thoughts as they were an open book for the undisguised loathing upon his face.  He was thinking of that other woman who, forty years ago, had stood before this beast, and could I have spoken a word into his ear at that moment the reign of Tal Hajus would have been over; but finally he also strode from the room, not knowing that he left his own daughter at the mercy of the creature he most loathed.</p>
+
+<p>Tal Hajus arose, and I, half fearing, half anticipating his intentions, hurried to the winding runway which led to the floors below.  No one was near to intercept me, and I reached the main floor of the chamber unobserved, taking my station in the shadow of the same column that Tars Tarkas had but just deserted.  As I reached the floor Tal Hajus was speaking.</p>
+
+<p>"Princess of Helium, I might wring a mighty ransom from your people would I but return you to them unharmed, but a thousand times rather would I watch that beautiful face writhe in the agony of torture; it shall be long drawn out, that I promise you; ten days of pleasure were all too short to show the love I harbor for your race.  The terrors of your death shall haunt the slumbers of the red men through all the ages to come; they will shudder in the shadows of the night as their fathers tell them of the awful vengeance of the green men; of the power and might and hate and cruelty of Tal Hajus.  But before the torture you shall be mine for one short hour, and word of that too shall go forth to Tardos Mors, Jeddak of Helium, your grandfather, that he may grovel upon the ground in the agony of his sorrow.  Tomorrow the torture will commence; tonight thou art Tal Hajus'; come!"</p>
+</div>
+<footer>
+    Text by Edgar Rice Burroughs, Art by Toke Frello, from The Noun Project
+</footer>
+</body>
+</html>
